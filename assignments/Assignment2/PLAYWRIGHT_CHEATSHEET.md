@@ -61,17 +61,3 @@ Pytest requests a fixture by the **parameter name**. To get our authenticated pa
 
 `page.get_by_test_id("add-to-cart")` creates a Locator even when the button is absent. `locator.is_visible()` returns a boolean. `DetailPage.require_in_stock()` raises `RuntimeError` when the button is missing or hidden, so the purchase test fails with an out of stock message before trying to increase quantity.
 
-## Request a password reset
-
-The fifth test registers a new customer, opens **Forgot your Password?** from the login page, then submits an unknown and a known email. It checks the server response and the message shown on the form. This tests the reset request and its feedback, as specified in `DESCRIPTION.md`; it does not read email or follow a reset link.
-
-| Method | What it does here |
-| --- | --- |
-| `page.get_by_test_id("forgot-password-link").click()` | Opens the forgot password form from the login page. |
-| `form.get_by_test_id("email").fill(email)` | Enters an email inside that form. |
-| `with page.expect_response(predicate) as response_info:` | Starts listening before Submit and captures the matching reset request response. |
-| `response_info.value.status` | Checks that the unknown email was rejected with HTTP 422. |
-| `response_info.value.ok` | Checks that the known email request succeeded. |
-| `expect(form.locator(".alert-danger")).to_be_visible()` | Waits for the invalid email error; `.alert-success` checks the known email confirmation. |
-
-The test creates a unique account so it does not depend on the demo user's password or mailbox. [Playwright response waits](https://playwright.dev/python/docs/api/class-page#page-expect-response), [Playwright assertions](https://playwright.dev/python/docs/test-assertions).
