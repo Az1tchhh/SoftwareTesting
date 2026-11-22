@@ -21,6 +21,8 @@ pytest
 
 For the Python version of the assignment, see the [pytest-playwright CI guide](assignments/sis2/Python_Pytest_Playwright_CI_Guide.md). The supplied DOCX describes the JavaScript/TypeScript Playwright Test runner, so its commands do not apply directly to this Python project.
 
+The submitted screenshots and their findings are summarized in the [CI pipeline report](assignments/sis2/SIS2_CI_Pipeline_Report.docx).
+
 It sets up Python, restores pip's dependency cache, installs the project requirements and Chromium system dependencies, then runs the complete pytest suite in four parallel groups. Each group uploads its HTML report, JUnit XML, and failure diagnostics (trace, screenshot, and video) for 14 days. Use the `workflow_dispatch` input to run one group as a timing baseline or all four groups for the parallel run.
 
 The Python runner does not provide Playwright Test's `forbidOnly`, blob reporter, or `merge-reports` command. Pytest collection does not treat `test.only` as a filter, and each parallel group therefore keeps its own HTML and JUnit report. There is no single merged HTML report.
