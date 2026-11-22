@@ -3,3 +3,5 @@ __pycache__/
 .pytest_cache/
 test-results/
 playwright-report/
+reports/
+.test_durations
